@@ -1,0 +1,30 @@
+package com.aspire.financial.controller;
+
+import com.aspire.financial.common.util.log.LogCommons;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
+
+public class Test {
+    //日中截取需要字段
+    public static void main(String[] args) throws Exception {
+        FileInputStream fileInputStream = new FileInputStream("C:\\Users\\Administrator\\Desktop\\new.log");
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream, "utf-8"));) {
+            String str = null;
+            while ((str = bufferedReader.readLine()) != null) {
+                //先把手机号解释出来
+                String[] split = str.split(",");
+                String s = split[3];
+                String[] split1 = s.split("=");
+                String s1 = split1[1];
+                if("1040".equals(s1)){
+                    System.out.println(split[4]);
+                }
+            }
+        } catch (Exception e) {
+            LogCommons.error("e:{}", e);
+        }
+    }
+}
+
